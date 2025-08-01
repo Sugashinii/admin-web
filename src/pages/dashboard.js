@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('auth');
+    if (isLoggedIn !== 'true') {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('auth');
     navigate('/login');
   };
 
