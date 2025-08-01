@@ -1,0 +1,40 @@
+/* styles/layout.css */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fb;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1f2937; /* dark gray */
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+.sidebar a:hover {
+  background-color: #374151;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  padding: 30px;
+}

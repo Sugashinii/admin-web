@@ -1,0 +1,31 @@
+/* src/styles/global.css */
+:root {
+  --bg: #F5F7FA;
+  --surface: #ffffff;
+  --primary: #4F46E5;
+  --primary-light: #EEF2FF;
+  --heading: #111827;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+  --success: #10B981;
+  --error: #EF4444;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--heading);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

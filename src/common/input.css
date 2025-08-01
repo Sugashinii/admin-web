@@ -1,0 +1,15 @@
+.input-field {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #2b2d42;
+  box-shadow: 0 0 0 2px rgba(43, 45, 66, 0.2);
+}

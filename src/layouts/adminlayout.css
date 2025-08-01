@@ -1,0 +1,40 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fef2f4;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-weight: 500;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #444;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+  background-color: #fddde6;
+  color: #d63384;
+}
+
+.logout-link {
+  margin-top: auto;
+  color: red;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
