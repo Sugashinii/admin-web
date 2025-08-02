@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = localStorage.getItem('auth');
+    if (auth === 'true') {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin') {
-      localStorage.setItem('isLoggedIn', 'true');
-      navigate('/');
-    } else {
-      alert('Invalid credentials!');
-    }
+
+   
+    localStorage.setItem('auth', 'true');
+    setIsSubmitted(true); 
   };
+
+  useEffect(() => {
+    if (isSubmitted) {
+      navigate('/dashboard');
+    }
+  }, [isSubmitted, navigate]);
 
   return (
     <div className="login-container">

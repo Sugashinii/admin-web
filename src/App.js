@@ -1,25 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/login';
 import Dashboard from './pages/dashboard';
 import OrdersPage from './pages/orders';
 
-function App() {
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'false';
+
+const AuthContext = createContext();
+
+
+const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('auth') === 'true';
+  });
+
+  const login = () => {
+    localStorage.setItem('auth', 'true');
+    setIsLoggedIn(true);
+  };
+
+  const logout = () => {
+    localStorage.removeItem('auth');
+    setIsLoggedIn(false);
+  };
 
   return (
-    <Router>
-      <Routes>
-       
-        <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/login"} />} />
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-       
-        <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <LoginPage />} />
+// Custom hook
+const useAuth = () => useContext(AuthContext);
 
-        <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />
-        <Route path="/orders" element={isLoggedIn ? <OrdersPage /> : <Navigate to="/login" />} />
-      </Routes>
-    </Router>
+// Protected route wrapper
+const ProtectedRoute = ({ element }) => {
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? element : <Navigate to="/login" />;
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+          <Route path="/orders" element={<ProtectedRoute element={<OrdersPage />} />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
@@ -21,8 +21,8 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <div className="dashboard-sidebar">
         <h2>Admin Panel</h2>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/orders">Orders</a>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/orders">Orders</Link>
         <button onClick={handleLogout} className="logout-button">Logout</button>
       </div>
 
