@@ -3,15 +3,23 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './pages/login';
 import Dashboard from './pages/dashboard';
 import OrdersPage from './pages/orders';
+import './index.css'; // Make sure loader CSS is here
 
-
+// Auth context
 const AuthContext = createContext();
 
-
 const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem('auth') === 'true';
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(null); // null means loading
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const storedAuth = localStorage.getItem('auth');
+      setIsLoggedIn(storedAuth === 'true');
+    };
+
+    // Simulate slight delay (optional, for real-world feel)
+    setTimeout(checkAuth, 100);
+  }, []);
 
   const login = () => {
     localStorage.setItem('auth', 'true');
@@ -22,6 +30,10 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem('auth');
     setIsLoggedIn(false);
   };
+
+  if (isLoggedIn === null) {
+    return <div className="loader"></div>; // Spinner while checking auth
+  }
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
@@ -39,6 +51,7 @@ const ProtectedRoute = ({ element }) => {
   return isLoggedIn ? element : <Navigate to="/login" />;
 };
 
+// Main App component
 function App() {
   return (
     <AuthProvider>
